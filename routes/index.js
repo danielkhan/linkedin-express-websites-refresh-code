@@ -8,8 +8,8 @@ module.exports = () => {
   router.use('/speakers', speakersRoute());
   router.use('/feedback', feedbackRoute());
 
-  router.get('/', (req, res) => {
-    res.render('pages/index', { pageTitle: 'Welcome' });
+  router.get('/', (request, response) => {
+    response.render('pages/index', { pageTitle: 'Welcome' });
   });
   return router;
 };
