@@ -5,7 +5,6 @@ const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
 class FeedbackService {
-
   constructor(datafile) {
     this.datafile = datafile;
   }
@@ -23,7 +22,7 @@ class FeedbackService {
 
   async getData() {
     const data = await readFile(this.datafile, 'utf8');
-    if(!data) return [];
+    if (!data) return [];
     return JSON.parse(data);
   }
 }
