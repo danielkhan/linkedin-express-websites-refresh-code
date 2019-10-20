@@ -2,7 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 
-module.exports = () => {
+module.exports = params => {
+  const { speakersService } = params;
+
   router.get('/', (request, response) => {
     response.send('Speakers List');
   });
