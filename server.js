@@ -11,6 +11,6 @@ app.use(express.static(path.join(__dirname, './static')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(routes);
+app.use(routes());
 
 app.listen(port, () => console.log(`Express server listening on port ${port}!`));
