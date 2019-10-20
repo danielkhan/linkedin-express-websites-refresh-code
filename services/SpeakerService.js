@@ -1,5 +1,5 @@
-const fs = require('fs');
-const util = require('util');
+const fs = require("fs");
+const util = require("util");
 
 const readFile = util.promisify(fs.readFile);
 
@@ -10,7 +10,10 @@ class SpeakerService {
 
   async getNames() {
     const data = await this.getData();
-    return data.map((speaker) => ({ name: speaker.name, shortname: speaker.shortname }));
+    return data.map(speaker => ({
+      name: speaker.name,
+      shortname: speaker.shortname
+    }));
   }
 
   async getAllArtwork() {
@@ -24,40 +27,46 @@ class SpeakerService {
     return artwork;
   }
 
-
   async getArtworkForSpeaker(shortname) {
     const data = await this.getData();
-    const speaker = data.find((speaker) => speaker.shortname === shortname);
+    const speaker = data.find(speaker => speaker.shortname === shortname);
     if (!speaker || !speaker.artwork) return null;
     return speaker.artwork;
   }
 
   async getSpeaker(shortname) {
     const data = await this.getData();
-    const speaker = data.find((speaker) => speaker.shortname === shortname);
+    const speaker = data.find(speaker => speaker.shortname === shortname);
     if (!speaker) return null;
     return {
       title: speaker.title,
       name: speaker.name,
       shortname: speaker.shortname,
-      description: speaker.description,
+      description: speaker.description
     };
   }
 
   async getListShort() {
     const data = await this.getData();
-    return data.map((speaker) => ({ name: speaker.name, shortname: speaker.shortname, title: speaker.title }));
+    return data.map(speaker => ({
+      name: speaker.name,
+      shortname: speaker.shortname,
+      title: speaker.title
+    }));
   }
 
   async getList() {
     const data = await this.getData();
-    return data.map((speaker) => ({
-      name: speaker.name, shortname: speaker.shortname, title: speaker.title, summary: speaker.summary,
+    return data.map(speaker => ({
+      name: speaker.name,
+      shortname: speaker.shortname,
+      title: speaker.title,
+      summary: speaker.summary
     }));
   }
 
   async getData() {
-    const data = await readFile(this.datafile, 'utf8');
+    const data = await readFile(this.datafile, "utf8");
     return JSON.parse(data).speakers;
   }
 }
