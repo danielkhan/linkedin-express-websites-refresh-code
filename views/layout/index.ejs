@@ -19,8 +19,8 @@
     <%}%>
     <%- include('./partials/navigation') %>
   </header>
-  <% if(locals.speakerslistTop){ %>
-  <%- include('./partials/speakerslist') %>
+  <% if(locals.topspeakers){ %>
+  <%- include('./partials/topspeakers') %>
   <%}%>
   <div class="container mt-4">
     <%- include(`../pages/${template}`) %>

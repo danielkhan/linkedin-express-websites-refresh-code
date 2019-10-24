@@ -11,13 +11,13 @@ module.exports = params => {
   router.use('/feedback', feedbackRoute(params));
 
   router.get('/', async (request, response) => {
-    const speakerslist = await speakerService.getList();
-    console.log(speakerslist);
+    const topspeakers = await speakerService.getList();
+    console.log(topspeakers);
     response.render('layout', {
       pageTitle: 'Welcome',
       template: 'index',
       showJumbotron: true,
-      speakerslistTop: speakerslist,
+      topspeakers,
     });
   });
   return router;
