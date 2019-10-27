@@ -2,28 +2,14 @@
   <div class="col-md-8">
     <article class="speakerslist maincontent">
 
-      <h1 class="speakerslist-title">Deep Sea Wonders</h1>
+      <h1 class="speakerslist-title"><%=speaker.title%></h1>
       <div class="speakerslist-name">with
-        <a href="./Hillary_Goldwynn.html">Hilary Goldywynn Post</a>
+        <%- include('../includes/speaker-link', {speaker}) %>
       </div>
-      <p class="speakerslist-info mt-2"> <a href="./Hillary_Goldwynn.html">
-        </a>
-        <img class="speakerslist-img img-fluid" src="./images/speakers/Hillary_Goldwynn.jpg"
-          alt="Photo of Hilary Goldywynn Post">
+      <p class="speakerslist-info mt-2">
+        <%- include('../includes/speaker-image', {speaker, large: true}) %>
       </p>
-      <p>Hillary is a sophomore art sculpture student at New York University, and
-        has already won all the major international prizes for new painters, including
-        the Divinity Circle, the International Painter&apos;s Medal, and the Academy
-        of Paris Award. Hillary&apos;s CAC exhibit features paintings that contain
-        only water images including waves, deep sea, and river.</p>
-      <p>An avid water sports participant, Hillary understands the water in many
-        ways in which others do not, or may not ever have the opportunity. Her
-        goal in creating the CAC exhibit was to share with others the beauty, power,
-        and flow of natural bodies of water throughout the world. In addition to
-        the display, Hilary also hosts a session on Tuesday called Deep Sea Wonders,
-        which combines her love of deep sea diving and snorkeling, with instruction
-        for capturing the beauty of underwater explorations on canvas.</p>
-      <p></p>
+      <%- speaker.description %>
 
     </article>
   </div>

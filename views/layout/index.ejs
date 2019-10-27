@@ -17,10 +17,10 @@
     <% if(locals.showJumbotron){ %>
     <div class="jumbotron d-none d-sm-block"></div>
     <%}%>
-    <%- include('./partials/navigation') %>
+    <%- include('./navigation') %>
   </header>
   <% if(locals.topspeakers){ %>
-  <%- include('./partials/topspeakers') %>
+  <%- include('./topspeakers') %>
   <%}%>
   <div class="container mt-4">
     <%- include(`../pages/${template}`) %>

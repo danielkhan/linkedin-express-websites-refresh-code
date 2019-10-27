@@ -1,0 +1,9 @@
+<a href="/speakers/<%=speaker.shortname%>">
+  <% if(!large) { %>
+  <img class="speakerslist-img rounded-circle" src="/images/speakers/<%=speaker.shortname%>_tn.jpg"
+    alt="Photo of <%=speaker.name%>" />
+  <% } else { %>
+  <img class="speakerslist-img img-fluid" src="/images/speakers/<%=speaker.shortname%>.jpg"
+    alt="Photo of <%=speaker.name%>" />
+  <% } %>
+</a>
