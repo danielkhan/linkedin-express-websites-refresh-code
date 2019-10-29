@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const bodyParser = require('body-parser');
 
 const FeedbackService = require('./services/FeedbackService');
 const SpeakerService = require('./services/SpeakerService');
@@ -11,6 +12,7 @@ const routes = require('./routes');
 
 const app = express();
 const port = 3000;
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.locals.sitename = 'ROUX Academy';
 
