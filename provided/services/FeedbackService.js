@@ -1,5 +1,6 @@
 const fs = require('fs');
 const util = require('util');
+const uuidv4 = require('uuid/v4');
 
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
@@ -32,7 +33,7 @@ class FeedbackService {
    */
   async addEntry(name, email, title, message) {
     const data = (await this.getData()) || [];
-    data.unshift({ name, email, title, message });
+    data.unshift({ id: uuidv4(), name, email, title, message });
     return writeFile(this.datafile, JSON.stringify(data));
   }
 
