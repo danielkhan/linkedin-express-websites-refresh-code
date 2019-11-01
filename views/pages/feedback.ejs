@@ -10,7 +10,11 @@
           <%})%>
         </ul>
       </div>
-      <%}%>
+      <%} else if(locals.successMessage) {%>
+      <div class="alert alert-success">
+        <%=successMessage%>
+      </div>
+      <%}%>  
         <h1>Send us feedback</h1>
         <form class="feedback-form" method="POST" action="/feedback">
           <div class="form-group">
@@ -42,7 +46,7 @@
       <div class="maincontent feedback">
         <h1>Recent Feedback</h1>
 
-        <% feedback.forEach(function (item) { %>
+      <% feedback.forEach(function (item) { %>
       <div class="feedback-item item-list media-list">
         <div class="feedback-item media">
           <div class="feedback-info media-body">

@@ -9,12 +9,14 @@ module.exports = params => {
   router.get('/', async (request, response) => {
     const feedback = await feedbackService.getList();
     const errors = request.session.feedback ? request.session.feedback.errors : false;
+    const successMessage = request.session.feedback ? request.session.feedback.message : false;
     request.session.feedback = {};
     return response.render('layout', {
       pageTitle: 'Feedback',
       template: 'feedback',
       showJumbotron: true,
       errors,
+      successMessage,
       feedback,
     });
   });
@@ -45,17 +47,26 @@ module.exports = params => {
         .withMessage('A message is required')
         .escape(),
     ],
-    async (request, response) => {
-      const errors = validationResult(request);
+    async (request, response, next) => {
+      try {
+        const errors = validationResult(request);
 
-      if (!errors.isEmpty()) {
+        if (!errors.isEmpty()) {
+          request.session.feedback = {
+            errors: errors.array(),
+          };
+          return response.redirect('/feedback');
+        }
+
+        const { name, email, title, message } = request.body;
+        await feedbackService.addEntry(name, email, title, message);
         request.session.feedback = {
-          errors: errors.array(),
+          message: 'Thank you for your feedback!',
         };
         return response.redirect('/feedback');
+      } catch (err) {
+        return next(err);
       }
-
-      return response.send('Post Feedback');
     }
   );
   return router;
