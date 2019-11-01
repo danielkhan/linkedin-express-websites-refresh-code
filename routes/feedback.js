@@ -5,14 +5,16 @@ const router = express.Router();
 
 module.exports = params => {
   const { feedbackService } = params;
+
   router.get('/', async (request, response) => {
     const feedback = await feedbackService.getList();
-    console.log(feedback);
-    response.render('layout', {
+    const errors = request.session.feedback ? request.session.feedback.errors : false;
+    request.session.feedback = {};
+    return response.render('layout', {
       pageTitle: 'Feedback',
       template: 'feedback',
       showJumbotron: true,
-      error: request.query.error,
+      errors,
       feedback,
     });
   });
@@ -23,25 +25,36 @@ module.exports = params => {
       check('name')
         .trim()
         .isLength({ min: 3 })
-        .withMessage('A name required'),
+        .escape()
+        .withMessage('A name required')
+        .escape(),
+      check('email')
+        .trim()
+        .isEmail()
+        .normalizeEmail()
+        .withMessage('A valid email address required')
+        .escape(),
       check('title')
         .trim()
-        .isLength({ min: 1 })
-        .withMessage('A title is required'),
+        .isLength({ min: 3 })
+        .withMessage('A title is required')
+        .escape(),
       check('message')
         .trim()
         .isLength({ min: 5 })
-        .withMessage('A message is required'),
+        .withMessage('A message is required')
+        .escape(),
     ],
-
     async (request, response) => {
-      const feedbackName = request.body.name.trim();
-      const feedbackTitle = request.body.title.trim();
-      const feedbackMessage = request.body.message.trim();
+      const errors = validationResult(request);
 
-      if (!feedbackName || !feedbackTitle || !feedbackMessage) {
-        return response.redirect('/feedback?error=true');
+      if (!errors.isEmpty()) {
+        request.session.feedback = {
+          errors: errors.array(),
+        };
+        return response.redirect('/feedback');
       }
+
       return response.send('Post Feedback');
     }
   );

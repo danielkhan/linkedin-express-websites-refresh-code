@@ -12,7 +12,6 @@ module.exports = params => {
 
   router.get('/', async (request, response, next) => {
     const topspeakers = await speakerService.getList();
-    console.log(topspeakers);
     response.render('layout', {
       pageTitle: 'Welcome',
       template: 'index',

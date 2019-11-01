@@ -1,7 +1,9 @@
 const express = require('express');
 
 const router = express.Router();
-
+app.get('/speakers', (request, responseponse) => {
+  response.sendFile(path.join(__dirname, './static/speakers.html'));
+});
 module.exports = params => {
   const { speakerService } = params;
 
