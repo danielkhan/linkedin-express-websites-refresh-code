@@ -10,7 +10,7 @@ module.exports = params => {
   router.use('/speakers', speakersRoute(params));
   router.use('/feedback', feedbackRoute(params));
 
-  router.get('/', async (request, response, next) => {
+  router.get('/', async (request, response) => {
     const topspeakers = await speakerService.getList();
     response.render('layout', {
       pageTitle: 'Welcome',

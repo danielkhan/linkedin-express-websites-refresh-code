@@ -86,7 +86,7 @@ module.exports = params => {
     const feedback = await feedbackService.getList();
 
     // and return it
-    return response.json({ feedback });
+    return response.json({ feedback, successMessage: 'Thank you for your feedback!' });
   });
 
   return router;
