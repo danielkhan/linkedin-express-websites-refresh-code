@@ -1,30 +1,37 @@
-$(function() {
-  $.getJSON('api', updateFeedback);
+$(function feedback() {
+  function updateFeedback(data) {
+    const render = [];
+    $.each(data, function createHtml(key, item) {
+      render.push(`
+        <div class="feedback-item item-list media-list">
+          <div class="feedback-item media">
+            <div class="feedback-info media-body">
+              <div class="feedback-head">
+                <div class="feedback-title">${item.title}</div>
+                <small>by ${item.name}</small>
+              </div>
+              <div class="feedback-message">
+                ${item.message}
+              </div>
+            </div>
+          </div>
+        </div>
+      `);
+    });
+    $('.feedback-items').html(render.split('\n'));
+  }
 
-  $('.feedback-form').submit(function(e) {
+  $('.feedback-form').submit(function submitFeedback(e) {
     e.preventDefault();
     $.post(
-      'api',
+      '/feedback/api',
       {
         name: $('#feedback-form-name').val(),
+        email: $('#feedback-form-email').val(),
         title: $('#feedback-form-title').val(),
         message: $('#feedback-form-message').val(),
       },
       updateFeedback
     );
   });
-
-  $('.feedback-messages').on('click', function(e) {
-    if (e.target.className == 'glyphicon glyphicon-remove') {
-      $.ajax({
-        url: `api/${  e.target.id}`,
-        type: 'DELETE',
-        success: updateFeedback,
-      }); // ajax
-    } // the target is a delete button
-  }); // feedback messages
-
-  function updateFeedback(data) {
-    $('.feedback-items').html(output);
-  }
 });
